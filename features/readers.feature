@@ -4,23 +4,20 @@ Feature:
   In order to faciliate my need for safety or my lack of need for safety at my choice.
 
 Scenario:
-  Given a feature with a trigger warning in the text
-  When I decide to read the marked text
+  Given a feature with a trigger warning at the top
+  When I decide to reveal the warning
   But do not perminantly accept the warning's context
-  Then the text will be visible to me to read
-  And when the page is reloaded there will be a trigger warning for that context.
+  Then then when I reload the page the warning will appear.
 
 Scenario:
-  Given a feature with two trigger warnings in the text with two different contexts
-  When I decide to read the marked text for one context
-  And I indicate that I accept the warning's context
-  Then the text marked will be visible to me to read for that context
-  And when the page is reloaded the marked text will be visible in the accepted context
-  But the unaccepted context will remain hidden.
+  Given a feature with trigger warnings assigned with two different contexts.
+  When I decide to reveal the warning
+  And I indicate that I accept one of the contexts
+  Then when the page is reloaded the warning I accepted will not appear
+  But the unaccepted warning be visible.
 
 Scenario:
-  Given a feature with two trigger warnings in the text with two different contexts
-  When I decide to read the marked text for one context
-  And I indicate that I want all trigger warnings to be visible
-  Then all of the markted text will be visible to me to read
-  And when the page is reloaded all of the marked text will be visible.
+  Given a feature with trigger warnings assigned two different contexts
+  When I decide to reveal the warning
+  And I indicate that I want all contexts to be accepted
+  Then when the page is reloaded the trigger warning will not appear.
