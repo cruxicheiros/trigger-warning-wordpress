@@ -18,7 +18,7 @@ function compose_warnings($type) {
     $warning_string = 'triggering material';
     switch ($type) {
     case 'triggering':
-        return 'triggering material';
+        return 'material';
     case 'abuse':
         return 'material about abusive behaviour';
         break;
