@@ -31,6 +31,12 @@ function compose_warnings($type) {
 
 }
 
+function tag_post() {
+    $post_id = get_the_ID();
+
+    wp_set_post_tags($post_id, 'trigger-warning', true );
+}
+
 function trigger_warning_func( $atts) {
     $a = shortcode_atts( array(
         'type' => 'triggering',
@@ -44,6 +50,7 @@ function trigger_warning_func( $atts) {
     else {
         return "false <br/>";
     }
+    tag_post();
     $warning_message = '<p><b>TRIGGER WARNING</b> This page contains ' . $warnings . ' which may be triggering for survivors.</p>';
     return $warning_message;
 }
