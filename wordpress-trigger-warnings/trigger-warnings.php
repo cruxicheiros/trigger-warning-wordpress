@@ -12,43 +12,41 @@ Version: 0.1
 Author URI: http://www.github.com/fragmad
 */
 
-function noise() {
-	$noise = "NOISE!";
 
-	// Here we split it into lines
-	$noise = explode( "\n", $lyrics );
+function compose_warnings($type) {
+    $warning_string = 'triggering material';
+    switch ($type) {
+    case 'triggering':
+        $warning_string = 'material';
+        break;
+    case 'abuse':
+        $warning_string = 'material about abusive behaviour';
+        break;
+    case 'slurs':
+        $warning_string = 'material containing slurs';
+        break;
+    }
 
-	// And then randomly choose a line
-	return wptexturize( $lyrics[ mt_rand( 0, count( $lyrics ) - 1 ) ] );
+    return $warning_string;
+
 }
 
-// This just echoes the chosen line, we'll position it later
-function make_noise() {
-	$chosen = noise();
-	echo "<p id='nin'>$chosen</p>";
+function trigger_warning_func( $atts) {
+    $a = shortcode_atts( array(
+        'type' => 'triggering',
+    ), $atts );
+
+    $trigger_types = array('triggering', 'abuse', 'sexual_violence', 'physical_violence', 'slurs');
+
+    if (in_array($a['type'], $trigger_types)) {
+        $warnings = compose_warnings($a['type']);
+    }
+    else {
+        return "false <br/>";
+    }
+    $warning_message = '<p><b>TRIGGER WARNING</b> This page contains ' . $warnings . ' which may be triggering for survivors.</p>';
+    return $warning_message;
 }
 
-// Now we set that function up to execute when the admin_notices action is called
-add_action( 'admin_notices', 'make_noise' );
-
-// We need some CSS to position the paragraph
-function noise_css() {
-	// This makes sure that the positioning is also good for right-to-left languages
-	$x = is_rtl() ? 'left' : 'right';
-
-	echo "
-	<style type='text/css'>
-	#dolly {
-		float: $x;
-		padding-$x: 15px;
-		padding-top: 5px;
-		margin: 0;
-		font-size: 11px;
-	}
-	</style>
-	";
-}
-
-add_action( 'admin_head', 'noise_css' );
-
+add_shortcode('trigger_warning', 'trigger_warning_func');
 ?>
