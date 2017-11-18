@@ -14,7 +14,6 @@ Author URI: http://www.github.com/fragmad
 
 
 function compose_warnings($type) {
-    $warning_string = 'triggering material';
     switch ($type) {
     case 'triggering':
         return 'material';
@@ -27,10 +26,9 @@ function compose_warnings($type) {
         return 'sexual violence';
     case 'physical_violence':
         return 'physical violence';
+    default:
+        return $type;
     }
-
-    return $warning_string;
-
 }
 
 function tag_post() {
@@ -61,8 +59,29 @@ function content_warning_func( $atts) {
     }
 
     tag_post();
-    $warning_message = '<p><b>CONTENT WARNING</b> This page contains ' . $warnings . ' which may be triggering for survivors.</p>';
-    return $warning_message;
+
+    $warning_javascript = '<script>
+function showWarning() { 
+    
+    var x = document.getElementsByClassName("ContentWarning");
+    
+    for (i = 0; i < x.length; i++) {    
+        if (x[i].style.display === "none") {        
+            x[i].style.display = "block";
+        } else {
+            x[i].style.display = "none";
+        }
+    }    
+}
+</script>';
+
+    $warning_message = '<div class="ContentWarning" style="display: none"><p>This page contains ' . $warnings . ' which may be triggering for survivors.</p></div>';
+
+    $warning_body = '<p><b>CONTENT WARNING: </b><br/><button onclick="showWarning()">Click to Reveal</button></p>'.$warning_message;
+
+    $warning_html = $warning_javascript . $warning_body ;
+
+    return $warning_html;
 }
 
 add_shortcode('content_warning', 'content_warning_func');
