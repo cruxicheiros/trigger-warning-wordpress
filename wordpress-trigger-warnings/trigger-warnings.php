@@ -15,17 +15,56 @@ Author URI: http://www.github.com/fragmad
 
 function compose_warnings($type) {
     switch ($type) {
-    case 'triggering':
-        return 'material';
-    case 'abuse':
-        return 'abusive behaviour';
-        break;
-    case 'slurs':
-        return 'ethnic or racist slurs';
-    case 'sexual_violence':
-        return 'sexual violence';
-    case 'physical_violence':
-        return 'physical violence';
+        case 'triggering':
+            return 'material';
+        case 'abuse':
+            return 'Abusive behaviour';
+        case 'animal':
+            return 'Animal cruelty/death';
+        case 'blood':
+            return 'Blood';
+        case 'cancer':
+            return 'Cancer';
+        case 'child_death':
+            return 'Child death';
+        case 'child_sexual_abuse':
+            return 'Child sexual abuse';
+        case 'death':
+            return 'Death/dying';
+        case 'shaming':
+            return 'Discussion of shaming/hatred isms (racism, sexism, xenophobia,  transphobia, ableism, etc.)';
+        case 'autonomy':
+            return 'Disregard for personal autonomy (kidnapping, enslavement)';
+        case 'drugs':
+            return 'Drug use';
+        case 'dysphoria':
+            return 'Dysphoria';
+        case 'violence':
+            return 'Gratuitous violence';
+        case 'incest':
+            return 'Incest';
+        case 'mental_disorders':
+            return 'Mental disorders';
+        case 'needles':
+            return 'Needles';
+        case 'pregnancy_childbirth_abortion':
+            return 'Pregnancy/childbirth/abortion';
+        case 'sexual_violence':
+            return 'Rape/sexual assault';
+        case 'self-harm':
+            return 'Self-harming behaviors';
+        case 'sex':
+            return 'Sex';
+        case 'slurs':
+            return 'Ethnic or racist slurs';
+        case 'spiders_insects':
+            return 'Spiders/Insects';
+        case 'suicide':
+            return 'Suicide';
+        case 'transphobia':
+            return 'Trans misgendering or other transphobic depictions';
+        case 'vomit':
+            return 'Vomit';
     default:
         return $type;
     }
@@ -44,10 +83,10 @@ function content_warning_func( $atts) {
     $warning_types = array('triggering', 'abuse', 'sexual_violence', 'physical_violence', 'slurs');
 
 
-    if (in_array($a['type'], $warning_types)) {
+/*    if (in_array($a['type'], $warning_types)) {
         $warnings = compose_warnings($a['type']);
     }
-    else {
+    else {*/
         $warnings = ' ';
         $arguments = array_map(
             'trim',
@@ -55,29 +94,30 @@ function content_warning_func( $atts) {
         );
 
         $parsed_warnings = array_map('compose_warnings', $arguments);
-        $warnings =  implode(' and/or ', $parsed_warnings);
-    }
+        //$warnings =  implode(' and/or ', $parsed_warnings);
+        $warnings =  implode('</li><li> ', $parsed_warnings);
+//    }
 
     tag_post();
 
     $warning_javascript = '<script>
-function showWarning() { 
-    
+function showWarning() {
+
     var x = document.getElementsByClassName("ContentWarning");
-    
-    for (i = 0; i < x.length; i++) {    
-        if (x[i].style.display === "none") {        
+
+    for (i = 0; i < x.length; i++) {
+        if (x[i].style.display === "none") {
             x[i].style.display = "block";
         } else {
             x[i].style.display = "none";
         }
-    }    
+    }
 }
 </script>';
 
-    $warning_message = '<div class="ContentWarning" style="display: none"><p>This page contains ' . $warnings . ' which may be triggering for survivors.</p></div>';
+    $warning_message = '<div class="ContentWarning" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>This page contains: </p><ul><li>' . $warnings . '</li></ul></div>';
 
-    $warning_body = '<p><b>CONTENT WARNING: </b><br/><button onclick="showWarning()">Click to Reveal</button></p>'.$warning_message;
+    $warning_body = '<p><b>CONTENT WARNING: </b><br/><button onclick="showWarning()">show warnings</button></p>'.$warning_message;
 
     $warning_html = $warning_javascript . $warning_body ;
 
