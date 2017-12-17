@@ -8,7 +8,7 @@ Plugin Name: Content Warnings
 Plugin URI:  https://github.com/fragmad/trigger-warning-wordpress
 Description: A plugin to provide a Wordpress shortcode to mark material which may upset potential readers and provide them with the ability to choose if they read content or not.
 Author: Will Ellwood
-Version: 0.5
+Version: 0.5.1
 Author URI: http://www.github.com/fragmad
 */
 
@@ -17,54 +17,74 @@ function compose_warnings($type) {
     switch ($type) {
         case 'triggering':
             return 'material';
+        case 'ableism':
+            return 'Ableism';
+        case 'abortion_miscarriage':
+            return 'Abortion/miscarriage';
         case 'abuse':
-            return 'Abusive behaviour';
+            return 'Abuse';
         case 'animal':
             return 'Animal cruelty/death';
         case 'blood':
             return 'Blood';
+        case 'body_transformation':
+            return 'Body transformation';
         case 'cancer':
             return 'Cancer';
+        case 'child_abuse':
+            return 'Child abuse';
+        case 'childbirth':
+            return 'Childbirth';
         case 'child_death':
             return 'Child death';
         case 'child_sexual_abuse':
             return 'Child sexual abuse';
+        case 'corpse_eating':
+            return 'Corpse-eating';
         case 'death':
             return 'Death/dying';
-        case 'shaming':
-            return 'Discussion of shaming/hatred isms (racism, sexism, xenophobia,  transphobia, ableism, etc.)';
+        case 'death_pregnant':
+            return 'Death of a pregnant person';
         case 'autonomy':
-            return 'Disregard for personal autonomy (kidnapping, enslavement)';
+            return 'Disregard for personal autonomy';
         case 'drugs':
             return 'Drug use';
         case 'dysphoria':
             return 'Dysphoria';
-        case 'violence':
-            return 'Gratuitous violence';
         case 'incest':
             return 'Incest';
         case 'mental_disorders':
             return 'Mental disorders';
+        case 'murder':
+            return 'Murder';
         case 'needles':
             return 'Needles';
-        case 'pregnancy_childbirth_abortion':
-            return 'Pregnancy/childbirth/abortion';
+        case 'pregnancy':
+            return 'Pregnancy';
         case 'sexual_violence':
             return 'Rape/sexual assault';
+        case 'shaming':
+            return 'Shaming';
         case 'self-harm':
             return 'Self-harming behaviors';
         case 'sex':
             return 'Sex';
         case 'slurs':
-            return 'Ethnic or racist slurs';
+            return 'Slurs';
+        case 'snakes':
+            return 'Snakes';
         case 'spiders_insects':
-            return 'Spiders/Insects';
+            return 'Spiders/insects';
         case 'suicide':
             return 'Suicide';
         case 'transphobia':
             return 'Trans misgendering or other transphobic depictions';
+        case 'violence':
+            return 'Violence/combat';
         case 'vomit':
             return 'Vomit';
+        case 'xenophobia':
+            return 'Xenophobia';
     default:
         return $type;
     }
@@ -83,20 +103,14 @@ function content_warning_func( $atts) {
     $warning_types = array('triggering', 'abuse', 'sexual_violence', 'physical_violence', 'slurs');
 
 
-/*    if (in_array($a['type'], $warning_types)) {
-        $warnings = compose_warnings($a['type']);
-    }
-    else {*/
-        $warnings = ' ';
-        $arguments = array_map(
-            'trim',
-            explode(',', $a['type'])
-        );
-
+    $warnings = ' ';
+    $arguments = array_map('trim',
+                            explode(',', $a['type'])
+    );
+    asort($arguments);
         $parsed_warnings = array_map('compose_warnings', $arguments);
         //$warnings =  implode(' and/or ', $parsed_warnings);
         $warnings =  implode('</li><li> ', $parsed_warnings);
-//    }
 
     tag_post();
 
@@ -115,7 +129,7 @@ function showWarning() {
 }
 </script>';
 
-    $warning_message = '<div class="ContentWarning" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>This page contains: </p><ul><li>' . $warnings . '</li></ul></div>';
+    $warning_message = '<div class="ContentWarning" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>This page contains: </p><ul><li>' . $warnings . '</li></ul></div><br/>';
 
     $warning_body = '<p><b>CONTENT WARNING: </b><br/><button onclick="showWarning()">show warnings</button></p>'.$warning_message;
 
@@ -132,8 +146,8 @@ function appthemes_add_contentwarning_quicktag() {
     if (wp_script_is('quicktags')){
 ?>
     <script type="text/javascript">
-    QTags.addButton( 'trigger_warning', 'trigger_warning', '[trigger_warning]', '', 'tw', 'Content Warning', 201 );
-    QTags.addButton( 'content_warning', 'content_warning', '[content_warning]', '', 'cw', 'Content Warning', 201 );
+    QTags.addButton( 'trigger_warning', 'trigger_warning', '[trigger_warning = 'none']', '', 'tw', 'Content Warning', 201 );
+    QTags.addButton( 'content_warning', 'content_warning', '[content_warning = 'none']', '', 'cw', 'Content Warning', 201 );
     </script>
 <?php
     }
