@@ -85,8 +85,8 @@ function compose_warnings($type) {
             return 'Vomit';
         case 'xenophobia':
             return 'Xenophobia';
-    default:
-        return $type;
+        default:
+            return $type;
     }
 }
 
@@ -105,12 +105,12 @@ function content_warning_func( $atts) {
 
     $warnings = ' ';
     $arguments = array_map('trim',
-                            explode(',', $a['type'])
+        explode(',', $a['type'])
     );
     asort($arguments);
-        $parsed_warnings = array_map('compose_warnings', $arguments);
-        //$warnings =  implode(' and/or ', $parsed_warnings);
-        $warnings =  implode('</li><li> ', $parsed_warnings);
+    $parsed_warnings = array_map('compose_warnings', $arguments);
+    //$warnings =  implode(' and/or ', $parsed_warnings);
+    $warnings =  implode('</li><li> ', $parsed_warnings);
 
     tag_post();
 
@@ -144,12 +144,12 @@ add_shortcode('trigger_warning', 'content_warning_func');
 // Add content warning quicktag to HTML editor
 function appthemes_add_contentwarning_quicktag() {
     if (wp_script_is('quicktags')){
-?>
-    <script type="text/javascript">
-    QTags.addButton( 'trigger_warning', 'trigger_warning', '[trigger_warning = 'none']', '', 'tw', 'Content Warning', 201 );
-    QTags.addButton( 'content_warning', 'content_warning', '[content_warning = 'none']', '', 'cw', 'Content Warning', 201 );
-    </script>
-<?php
+        ?>
+        <script type="text/javascript">
+            QTags.addButton( 'trigger_warning', 'trigger_warning', '[trigger_warning = 'none']', '', 'tw', 'Content Warning', 201 );
+            QTags.addButton( 'content_warning', 'content_warning', '[content_warning = 'none']', '', 'cw', 'Content Warning', 201 );
+        </script>
+        <?php
     }
 }
 add_action( 'admin_print_footer_scripts', 'appthemes_add_contentwarning_quicktag' );
