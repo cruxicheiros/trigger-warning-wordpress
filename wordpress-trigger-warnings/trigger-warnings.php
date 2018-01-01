@@ -14,80 +14,99 @@ Author URI: http://www.github.com/fragmad
 
 
 function compose_warnings($type) {
-    switch ($type) {
-        case 'triggering':
-            return 'material';
-        case 'ableism':
-            return 'Ableism';
-        case 'abortion_miscarriage':
-            return 'Abortion/miscarriage';
-        case 'abuse':
-            return 'Abuse';
-        case 'animal':
-            return 'Animal cruelty/death';
-        case 'blood':
-            return 'Blood';
-        case 'body_transformation':
-            return 'Body transformation';
-        case 'cancer':
-            return 'Cancer';
-        case 'child_abuse':
-            return 'Child abuse';
-        case 'childbirth':
-            return 'Childbirth';
-        case 'child_death':
-            return 'Child death';
-        case 'child_sexual_abuse':
-            return 'Child sexual abuse';
-        case 'corpse_eating':
-            return 'Corpse-eating';
-        case 'death':
-            return 'Death/dying';
-        case 'death_pregnant':
-            return 'Death of a pregnant person';
-        case 'autonomy':
-            return 'Disregard for personal autonomy';
-        case 'drugs':
-            return 'Drug use';
-        case 'dysphoria':
-            return 'Dysphoria';
-        case 'incest':
-            return 'Incest';
-        case 'mental_disorders':
-            return 'Mental disorders';
-        case 'murder':
-            return 'Murder';
-        case 'needles':
-            return 'Needles';
-        case 'pregnancy':
-            return 'Pregnancy';
-        case 'sexual_violence':
-            return 'Rape/sexual assault';
-        case 'shaming':
-            return 'Shaming';
-        case 'self-harm':
-            return 'Self-harming behaviors';
-        case 'sex':
-            return 'Sex';
-        case 'slurs':
-            return 'Slurs';
-        case 'snakes':
-            return 'Snakes';
-        case 'spiders_insects':
-            return 'Spiders/insects';
-        case 'suicide':
-            return 'Suicide';
-        case 'transphobia':
-            return 'Trans misgendering or other transphobic depictions';
-        case 'violence':
-            return 'Violence/combat';
-        case 'vomit':
-            return 'Vomit';
-        case 'xenophobia':
-            return 'Xenophobia';
-        default:
-            return $type;
+
+    $READ_JSON = true;
+
+    if ($READ_JSON == false) {
+        switch ($type) {
+            case 'triggering':
+                return 'material';
+            case 'ableism':
+                return 'Ableism';
+            case 'abortion_miscarriage':
+                return 'Abortion/miscarriage';
+            case 'abuse':
+                return 'Abuse';
+            case 'animal':
+                return 'Animal cruelty/death';
+            case 'blood':
+                return 'Blood';
+            case 'body_transformation':
+                return 'Body transformation';
+            case 'cancer':
+                return 'Cancer';
+            case 'child_abuse':
+                return 'Child abuse';
+            case 'childbirth':
+                return 'Childbirth';
+            case 'child_death':
+                return 'Child death';
+            case 'child_sexual_abuse':
+                return 'Child sexual abuse';
+            case 'corpse_eating':
+                return 'Corpse-eating';
+            case 'death':
+                return 'Death/dying';
+            case 'death_pregnant':
+                return 'Death of a pregnant person';
+            case 'autonomy':
+                return 'Disregard for personal autonomy';
+            case 'drugs':
+                return 'Drug use';
+            case 'dysphoria':
+                return 'Dysphoria';
+            case 'incest':
+                return 'Incest';
+            case 'mental_disorders':
+                return 'Mental disorders';
+            case 'murder':
+                return 'Murder';
+            case 'needles':
+                return 'Needles';
+            case 'pregnancy':
+                return 'Pregnancy';
+            case 'sexual_violence':
+                return 'Rape/sexual assault';
+            case 'shaming':
+                return 'Shaming';
+            case 'self-harm':
+                return 'Self-harming behaviors';
+            case 'sex':
+                return 'Sex';
+            case 'slurs':
+                return 'Slurs';
+            case 'snakes':
+                return 'Snakes';
+            case 'spiders_insects':
+                return 'Spiders/insects';
+            case 'suicide':
+                return 'Suicide';
+            case 'transphobia':
+                return 'Trans misgendering or other transphobic depictions';
+            case 'violence':
+                return 'Violence/combat';
+            case 'vomit':
+                return 'Vomit';
+            case 'xenophobia':
+                return 'Xenophobia';
+            default:
+                return $type;
+        }
     }
+    else {
+        $dir = plugin_dir_path( __FILE__ );
+
+        $warning_file = $dir . "warnings.json";
+        $json = file_get_contents($warning_file);
+        $json_data = json_decode($json,true);
+
+            if (array_key_exists($type, $json_data)) {
+                return $json_data[$type];
+            }
+            else {
+                return $type;
+            }
+        }
 }
 
 function tag_post() {
