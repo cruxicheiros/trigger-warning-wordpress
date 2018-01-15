@@ -8,7 +8,7 @@ Plugin Name: Content Warnings
 Plugin URI:  https://github.com/fragmad/trigger-warning-wordpress
 Description: A plugin to provide a Wordpress shortcode to mark material which may upset potential readers and provide them with the ability to choose if they read content or not.
 Author: Will Ellwood
-Version: 0.5.2
+Version: 0.5.3
 Author URI: http://www.github.com/fragmad
 */
 
@@ -28,29 +28,45 @@ function compose_warnings($type) {
             }
 }
 
-function tag_post() {
+function tag_post($set_content_warning) {
     $post_id = get_the_ID();
-    wp_set_post_tags($post_id, 'content-warning', true );
+
+    if ($set_content_warning){
+        wp_set_post_tags($post_id, 'content-warning', true );
+    }
+    else {
+        wp_set_post_tags($post_id, 'no-content-warning', true);
+    }
 }
 
 function content_warning_func( $atts) {
     $a = shortcode_atts( array(
-        'type' => 'triggering',
+        'type' => 'No content warnings',
     ), $atts );
 
-    $warning_types = array('triggering', 'abuse', 'sexual_violence', 'physical_violence', 'slurs');
 
+//    $a = shortcode_atts( $atts );
 
-    $warnings = ' ';
     $arguments = array_map('trim',
         explode(',', $a['type'])
     );
     asort($arguments);
     $parsed_warnings = array_map('compose_warnings', $arguments);
-    //$warnings =  implode(' and/or ', $parsed_warnings);
     $warnings =  implode('</li><li> ', $parsed_warnings);
 
-    tag_post();
+    $set_warning_tag = true;
+
+    if (in_array('none',$arguments)) {
+        $set_warning_tag = false;
+    }
+    elseif (sizeof($arguments) == 1) {
+        $set_warning_tag = false;
+    }
+    else {
+        // value already set. Do nothing.
+    }
+
+    tag_post($set_warning_tag);
 
     $warning_javascript = '<script>
 function showWarning() {
