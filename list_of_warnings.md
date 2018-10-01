@@ -1,25 +1,40 @@
-* Abuse
-* Animal cruelty/death
-* Blood
-* Cancer
-* Child death 
-* Child sexual abuse
-* Death/dying
-* Discussion of shaming/hatred isms (racism, sexism, xenophobia,  transphobia, ableism, etc.)
-* Disregard for personal autonomy (kidnapping, enslavement)
-* Drug use
-* Dysphoria
-* Gratuitous violence
-* Incest
-* Mental disorders
-* Needles
-* Pregnancy/childbirth/abortion
-* Rape/sexual assault
-* Self-harming behaviors
-* Sex
-* Slurs
-* Snakes
-* Spiders/Insects
-* Suicide
-* Trans misgendering or other transphobic depictions
-* Vomit
+- Author refused content warnings
+- Ableism
+- Abortion/miscarriage
+- Abuse
+- Animal cruelty/death
+- Blood
+- Body transformation
+- Cancer
+- Child abuse
+- Childbirth
+- Child death
+- Child sexual abuse
+- Death/dying
+- Death of a pregnant person
+- Disregard for personal autonomy
+- Drug use
+- Dysphoria
+- Homophobia
+- Incest
+- Mental health issues
+- Murder
+- Needles
+- No content warnings
+- Pregnancy
+- Racism
+- Scars/scarification
+- Rape/sexual assault
+- Shaming
+- Self-harming behaviors
+- Sex
+- Sexism/gender discrimination
+- Slurs
+- Snakes
+- Spiders/insects
+- Suffocation
+- Suicide
+- Trans misgendering or other transphobic depictions
+- Violence/combat
+- Vomit
+- Xenophobia
