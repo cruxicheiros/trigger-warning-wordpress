@@ -6,10 +6,12 @@
 - Blood
 - Body transformation
 - Cancer
+- Casteism
 - Child abuse
 - Childbirth
 - Child death
 - Child sexual abuse
+- Colorism
 - Death/dying
 - Death of a pregnant person
 - Disregard for personal autonomy
@@ -17,6 +19,7 @@
 - Dysphoria
 - Homophobia
 - Incest
+- Infectious Disease
 - Mental health issues
 - Murder
 - Needles
