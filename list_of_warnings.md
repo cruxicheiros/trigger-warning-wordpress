@@ -6,6 +6,8 @@
 - Blood
 - Body transformation
 - Cancer
+- Casteism
+- Colorism
 - Child abuse
 - Childbirth
 - Child death
@@ -17,6 +19,7 @@
 - Dysphoria
 - Homophobia
 - Incest
+- Infectious Disease
 - Mental health issues
 - Murder
 - Needles
