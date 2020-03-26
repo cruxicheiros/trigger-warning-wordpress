@@ -7,11 +7,11 @@
 - Body transformation
 - Cancer
 - Casteism
-- Colorism
 - Child abuse
 - Childbirth
 - Child death
 - Child sexual abuse
+- Colorism
 - Death/dying
 - Death of a pregnant person
 - Disregard for personal autonomy
