@@ -17,3 +17,7 @@ To install this plugin drop the wordpress-trigger-warnings directory into wp-plu
 ## Development
 
 Development uses the Docker compose file to create a local development environment.
+
+Please ensure that changes are main to feature and bugfix branches and a pull request is raised to merge with main.
+
+This repository uses "main" as the name of the primary and canonical branch for production use.
