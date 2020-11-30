@@ -42,6 +42,7 @@ function tag_post($set_content_warning) {
 function content_warning_func( $atts) {
     $a = shortcode_atts( array(
         'type' => 'No content warnings',
+	'lang' => 'en-EN'
     ), $atts );
 
 
@@ -50,7 +51,9 @@ function content_warning_func( $atts) {
     $arguments = array_map('trim',
         explode(',', $a['type'])
     );
+
     asort($arguments);
+
     $parsed_warnings = array_map('compose_warnings', $arguments);
     $warnings =  implode('</li><li> ', $parsed_warnings);
 
@@ -84,8 +87,15 @@ function showWarning() {
 </script>';
 
     $warning_message = '<div class="ContentWarning" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>This page contains: </p><ul><li>' . $warnings . '</li></ul></div><br/>';
+    $warning_body = '<p><strong style="text-transform: uppercase;">Content warning: </strong><br/><button onclick="showWarning()">Show warnings</button></p>'.$warning_message;
 
-    $warning_body = '<p><b>CONTENT WARNING: </b><br/><button onclick="showWarning()">show warnings</button></p>'.$warning_message;
+    if ($a[lang] == 'es-MX') {
+        $warning_message = '<div class="ContentWarning" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>Esta página contiene: </p><ul><li>' . $warnings . '</li></ul></div><br/>';
+        $warning_body = '<p><strong style="text-transform: uppercase;">Advertencias de contenido: </strong><br/><button onclick="showWarning()">Mostrar advertencias de contenido</button></p>'.$warning_message;
+    } elseif ($a[lang] == 'nah-MX') {
+        $warning_message = '<div class="ContentWarning" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>Yehwin tlakwilohle kintenewa: </p><ul><li>' . $warnings . '</li></ul></div><br/>';
+        $warning_body = '<p><strong style="text-transform: uppercase;">Yehwin tlakwilohle kintenewa: </strong><br/><button onclick="showWarning()">Mostrar advertencias de contenido</button></p>'.$warning_message;
+    }
 
     $warning_html = $warning_javascript . $warning_body ;
 
@@ -107,4 +117,3 @@ function appthemes_add_contentwarning_quicktag() {
     }
 }
 add_action( 'admin_print_footer_scripts', 'appthemes_add_contentwarning_quicktag' );
-?>
