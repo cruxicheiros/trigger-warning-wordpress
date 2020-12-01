@@ -94,7 +94,7 @@ function showWarning() {
         $warning_body = '<p><strong style="text-transform: uppercase;">Advertencias de contenido: </strong><br/><button onclick="showWarning()">Mostrar advertencias de contenido</button></p>'.$warning_message;
     } elseif ($a[lang] == 'nah-MX') {
         $warning_message = '<div class="ContentWarning" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>Yehwin tlakwilohle kintenewa: </p><ul><li>' . $warnings . '</li></ul></div><br/>';
-        $warning_body = '<p><strong style="text-transform: uppercase;">Yehwin tlakwilohle kintenewa: </strong><br/><button onclick="showWarning()">Mostrar advertencias de contenido</button></p>'.$warning_message;
+        $warning_body = '<p><strong style="text-transform: uppercase;">Yehwin tlakwilohle kintenewa: </strong><br/><button onclick="showWarning()">Ma ixnesi tlinon kipia yehwin tlakwilole</button></p>'.$warning_message;
     }
 
     $warning_html = $warning_javascript . $warning_body ;
