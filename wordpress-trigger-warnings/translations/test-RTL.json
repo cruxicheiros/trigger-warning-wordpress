@@ -1,0 +1,17 @@
+{
+    "meta": {
+        "iso": "test-RTL",
+        "fallback": ["en-US"],
+        "directionality": "rtl",
+	"comment": "This is a test language for testing the display of RTL. It uses terms from Arabic to test this. One of the terms has a space in it and an unjoined character to make sure this displays correctly."
+    },
+    "ui": {
+        "content_warning": "كلمة",
+        "show_warnings": "زر",
+        "this_page_contains": "كلمة"
+    },
+    "terms": {
+	 "spiders_insects": "صباح الخير",
+         "death": "كلمة"
+    }
+}

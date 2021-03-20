@@ -8,7 +8,7 @@ Plugin Name: Content Warnings
 Plugin URI:  https://github.com/fragmad/trigger-warning-wordpress
 Description: A plugin to provide a Wordpress shortcode to mark material which may upset potential readers and provide them with the ability to choose if they read content or not.
 Author: Will Ellwood
-Version: 0.5.4
+Version: 0.6.0
 Author URI: http://www.github.com/fragmad
 */
 

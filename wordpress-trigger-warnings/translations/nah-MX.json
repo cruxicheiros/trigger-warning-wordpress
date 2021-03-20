@@ -1,0 +1,17 @@
+{
+    "meta": {
+        "iso": "nah-MX",
+        "fallback": ["es-MX", "en-US"],
+        "directionality": "ltr",
+	"comment": "Nahuatl. Translations by Ateri Miyawatl."
+    },
+    "ui": {
+        "content_warning": "Yehwin tlakwilohle kintenewa:",
+        "show_warnings": "Ma ixnesi tlinon kipia yehwin tlakwilole",
+        "this_page_contains": "Yehwin tlakwilohle kintenewa:"
+    },
+    "terms": {
+	 "spiders_insects": "Tokameh niman yolkatsintin",
+         "death": "Mikilistle"
+    }
+}
