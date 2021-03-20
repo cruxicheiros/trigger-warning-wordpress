@@ -18,6 +18,7 @@
 - Drug use
 - Dysphoria
 - Homophobia
+- Imperialism
 - Incest
 - Infectious Disease
 - Mental health issues
@@ -30,6 +31,7 @@
 - Rape/sexual assault
 - Shaming
 - Self-harming behaviors
+- Settler colonialism
 - Sex
 - Sexism/gender discrimination
 - Slurs
