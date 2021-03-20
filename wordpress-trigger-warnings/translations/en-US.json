@@ -6,7 +6,7 @@
 	"comment": "US English has no fallback languages because it's the language of the canonical list of content warnings for SH."
     },
     "ui": {
-        "content_warning": "Content Warning:",
+        "content_warning": "Content warning:",
         "show_warnings": "Show warnings",
         "this_page_contains": "This page contains:"
     },
