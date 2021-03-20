@@ -14,10 +14,10 @@ Author URI: http://www.github.com/fragmad
 
 function get_translation_path($iso_code) {
     $dir = plugin_dir_path( __FILE__ ) . "translations/";
-    $translation_file_path = $dir . basename($lang) . ".json"; // Wrapping $lang in basename() stops bad input from allowing access to other parts of the filesystem.
+    $translation_file_path = $dir . basename($iso_code) . ".json"; // Wrapping $lang in basename() stops bad input from allowing access to other parts of the filesystem.
 
     if (file_exists($translation_file_path)) {
-        return translation_file_path;
+        return $translation_file_path;
     } else {
         return null;
     }
@@ -36,17 +36,17 @@ function get_translation($lang) {
     }
 
     // Get the contents of the file as an associative array
-    $json = file_get_contents($warning_file);
+    $json = file_get_contents($translation_file_path);
     $json_data = json_decode($json, true);
 
     // Get information about the fallback languages for this language
-    $fallback_iso_codes = $json_data["meta"]["fallbacks"];
+    $fallback_iso_codes = $json_data["meta"]["fallback"];
     $fallback_translations = array();
 
     // If it has fallbacks...
     if (!empty($fallback_iso_codes)) {
 	foreach($fallback_iso_codes as $iso) {
-            $file_path = $get_translation_path($iso);
+            $file_path = get_translation_path($iso);
             
             if (is_null($file_path)) {
                 continue;  // It's safe to ignore incorrect fallbacks because the result will be visible on the page later on.
@@ -55,7 +55,7 @@ function get_translation($lang) {
             $fallback_json = file_get_contents($file_path);
             $fallback_json_data = json_decode($fallback_json, true);
 
-            $fallback_translations[] = $fallback_json_data();
+            $fallback_translations[] = $fallback_json_data;
         }
     }
 
@@ -73,7 +73,7 @@ function parse_warning($warning_code, $translation) {
     }
     
     // if the translation has no fallback translations, return the warning code
-    if (is_empty($translation["fallbacks"])) {
+    if (empty($translation["fallbacks"])) {
         return $warning_code;
     }
 
@@ -100,7 +100,18 @@ function tag_post($set_content_warning) {
     }
 }
 
-function content_warning_func( $atts) {
+// sanitization is the same as sanitize_html_class except dashes aren't allowed
+function sanitize_js_function_name($string) {
+    // Strip out any %-encoded octets.
+    $sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', $string );
+ 
+    // Limit to A-Z, a-z, 0-9, '_'
+    $sanitized = preg_replace( '/[^A-Za-z0-9_]/', '', $sanitized );
+
+    return $sanitized;
+}
+
+function content_warning_func($atts) {
     // Define the attributes of the shortcode and their default contents
     $a = shortcode_atts( array(
         'type' => 'no_warnings_apply',
@@ -118,7 +129,7 @@ function content_warning_func( $atts) {
     asort($warning_codes);
 
     // Get the translation for the language
-    $translation = get_translation($lang);
+    $translation = get_translation($a['lang']);
 
     // Go over each warning code and get a translation for it
     $parsed_warnings = array();
@@ -133,10 +144,10 @@ function content_warning_func( $atts) {
     // Set the post-has-warning WP tag if necessary
     $set_warning_tag = true;
 
-    if (in_array('none',$arguments)) {
+    if (in_array('none', $warning_codes)) {
         $set_warning_tag = false;
     }
-    elseif (sizeof($arguments) == 1) {
+    elseif (sizeof($warning_codes) == 1) {
         $set_warning_tag = false;
     }
     else {
@@ -145,25 +156,24 @@ function content_warning_func( $atts) {
 
     tag_post($set_warning_tag);
 
+    $js_friendly_iso_code = sanitize_js_function_name($translation["meta"]["iso"]); 
 
     // Construct HTML to insert into page
     $warning_javascript = '<script>
-function showWarning() {
-    var x = document.getElementsByClassName("ContentWarning' . $translation["meta"]["iso"] . '");
+function showWarning_' . $js_friendly_iso_code . '() {
+    var content_warning_list = document.getElementById("ContentWarning_' . $js_friendly_iso_code . '");
 
-    for (i = 0; i < x.length; i++) {
-        if (x[i].style.display === "none") {
-            x[i].style.display = "block";
-        } else {
-            x[i].style.display = "none";
-        }
+    if (content_warning_list.style.display === "none") {
+        content_warning_list.style.display = "block";
+    } else {
+        content_warning_list.style.display = "none";
     }
 }
 </script>';
 
-    $warning_message = '<div class="ContentWarning' . $translation["meta"]["iso"] . '" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>' . $translation["ui"]["this_page_contains"] . ' </p><ul><li>' . $warnings . '</li></ul></div><br/>';
+    $warning_message = '<div class="ContentWarning" id="ContentWarning_' . $js_friendly_iso_code . '" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>' . $translation["ui"]["this_page_contains"] . ' </p><ul><li>' . $warnings . '</li></ul></div><br/>';
 
-    $warning_body = '<p><b>' . $translation["ui"]["content_warning"] . '</b><br/><button onclick="showWarning()">' . $translation["ui"]["show_warnings"] . '</button></p>'.$warning_message;
+    $warning_body = '<div dir="' . $translation["meta"]["directionality"] . '" class="ContentWarningContainer_' . $translation["meta"]["directionality"] . '"><p><b>' . $translation["ui"]["content_warning"] . '</b><br/><button onclick="showWarning_' . $js_friendly_iso_code .'()">' . $translation["ui"]["show_warnings"] . '</button></p>'. $warning_message . "</div>";
 
     $warning_html = $warning_javascript . $warning_body ;
 
