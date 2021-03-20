@@ -171,7 +171,7 @@ function showWarning_' . $js_friendly_iso_code . '() {
 }
 </script>';
 
-    $warning_message = '<div class="content-warning" id="content-warning-' . $js_friendly_iso_code . '" style="display: none; background-color: none; border-style: solid; border-color: black; " ><p>' . $translation["ui"]["this_page_contains"] . ' </p><ul><li>' . $warnings . '</li></ul></div><br/>';
+    $warning_message = '<div class="content-warning" id="content-warning-' . $js_friendly_iso_code . '" style="display: none;" ><p>' . $translation["ui"]["this_page_contains"] . ' </p><ul><li>' . $warnings . '</li></ul></div><br/>';
 
     $warning_body = '<div dir="' . $translation["meta"]["directionality"] . '" class="content-warning-container-' . $translation["meta"]["directionality"] . '"><p><strong class="content-warning-title">' . $translation["ui"]["content_warning"] . '</strong><br/><button onclick="showWarning_' . $js_friendly_iso_code .'()">' . $translation["ui"]["show_warnings"] . '</button></p>'. $warning_message . "</div>";
 
