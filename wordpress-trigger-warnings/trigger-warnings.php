@@ -114,7 +114,7 @@ function sanitize_js_function_name($string) {
 function content_warning_func($atts) {
     // Define the attributes of the shortcode and their default contents
     $a = shortcode_atts( array(
-        'type' => 'no_warnings_apply',
+        'type' => 'none',
         'lang' => 'en-EN'
     ), $atts );
 
