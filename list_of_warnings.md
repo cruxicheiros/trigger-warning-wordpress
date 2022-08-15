@@ -17,6 +17,7 @@
 - Disregard for personal autonomy
 - Drug use
 - Dysphoria
+- Dysmorphia
 - Homophobia
 - Incest
 - Infectious Disease
@@ -35,7 +36,7 @@
 - Slurs
 - Snakes
 - Spiders/insects
-- Suffocation
+- Suffocation/drowning
 - Suicide
 - Trans misgendering or other transphobic depictions
 - Violence/combat
